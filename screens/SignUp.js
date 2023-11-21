@@ -8,8 +8,6 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../FirebaseConfig";
 
 const SignUp = () => {
   const navigation = useNavigation();
@@ -29,23 +27,9 @@ const SignUp = () => {
     setEmail(event.target.value);
   };
 
-  const handleSubmit = async () => {
-    try {
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        username,
-        password
-      );
-      console.log(response);
-      alert("check your email");
-    } catch (error) {
-      console.log(error);
-      alert("Sign up failed: " + error.message);
-    }
-  };
   return (
     <View style={styles.container}>
-      <Text>Sign Up</Text>
+      <Text style={styles.title}>Sign Up</Text>
       <View style={styles.formContainer}>
         <TextInput
           value={username}
@@ -67,7 +51,7 @@ const SignUp = () => {
           onChange={handlePasswordChange}
         ></TextInput>
 
-        <TouchableOpacity style={styles.login} onPress={handleSubmit}>
+        <TouchableOpacity style={styles.login}>
           <Text style={styles.loginMessage}>Sign Up</Text>
         </TouchableOpacity>
       </View>
@@ -88,6 +72,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     flex: 1,
     justifyContent: "center",
+    marginVertical: 20,
   },
   formContainer: {
     marginVertical: 10,
@@ -117,5 +102,11 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
     marginTop: 10,
+  },
+
+  title: {
+    fontWeight: "bold",
+    fontSize: 30,
+    textAlign: "center",
   },
 });

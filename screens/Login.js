@@ -9,13 +9,10 @@ import {
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-import { FIREBASE_AUTH } from "../FirebaseConfig";
-
 const Login = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const auth = FIREBASE_AUTH;
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -25,39 +22,27 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
-  const signIn = async () => {
-    try {
-      const response = await signInWithEmailAndPassword(
-        auth,
-        username,
-        password
-      );
-      alert("Check your emails");
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-      alert("Sign in failed: " + error.message);
-    }
-  };
   return (
     <View style={styles.container}>
-      <Text>Login</Text>
+      <Text style={styles.title}>Login</Text>
       <View style={styles.formContainer}>
         <TextInput
           value={email}
           style={styles.input}
           placeholder="Username"
-          onChange={handleEmailChange}
+          // onChange={handleEmailChange}
+          onChange={(text) => setEmail(text)}
         ></TextInput>
         <TextInput
           value={password}
           style={styles.input}
           secureTextEntry={true}
           placeholder="Password"
-          onChange={handlePasswordChange}
+          // onChange={handlePasswordChange}
+          onChange={(text) => setPassword(text)}
         ></TextInput>
         {/* <Button title="Login" style={styles.login} /> */}
-        <TouchableOpacity style={styles.login} onPress={signIn}>
+        <TouchableOpacity style={styles.login}>
           <Text style={styles.loginMessage}>Login</Text>
         </TouchableOpacity>
       </View>
@@ -78,6 +63,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     flex: 1,
     justifyContent: "center",
+    marginVertical: 20,
   },
   formContainer: {
     marginVertical: 10,
@@ -107,5 +93,10 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
     marginTop: 10,
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 30,
+    textAlign: "center",
   },
 });
