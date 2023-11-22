@@ -51,7 +51,10 @@ const SignUp = () => {
           onChange={handlePasswordChange}
         ></TextInput>
 
-        <TouchableOpacity style={styles.login}>
+        <TouchableOpacity
+          style={styles.login}
+          onPress={() => navigation.push("Home")}
+        >
           <Text style={styles.loginMessage}>Sign Up</Text>
         </TouchableOpacity>
       </View>

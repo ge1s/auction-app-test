@@ -42,7 +42,10 @@ const Login = () => {
           onChange={(text) => setPassword(text)}
         ></TextInput>
         {/* <Button title="Login" style={styles.login} /> */}
-        <TouchableOpacity style={styles.login}>
+        <TouchableOpacity
+          style={styles.login}
+          onPress={() => navigation.push("Home")}
+        >
           <Text style={styles.loginMessage}>Login</Text>
         </TouchableOpacity>
       </View>
