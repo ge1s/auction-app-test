@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { signOut } from "firebase/auth";
@@ -10,30 +10,22 @@ export default function HomeScreen() {
   };
   return (
     <View>
-      <SafeAreaView className="flex-3 flex-row justify-center items-center ">
-        <Text className="text-lg">Home Page </Text>
+      <SafeAreaView className="flex ">
+        <View className="flex-row justify-start">
+          <TouchableOpacity
+            onPress={handleLogout}
+            className="bg-yellow-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4 rounded-tr-2xl rounded-bl-2xl ml-4"
+          >
+            <Text className="text-white text-lg font-bold">Logout</Text>
+          </TouchableOpacity>
+        </View>
+        <View className="flex-row justify-center">
+          <Image
+            source={require("../assets/images/login.png")}
+            style={{ width: 200, height: 200, alignItems: "center" }}
+          />
+        </View>
       </SafeAreaView>
-      <TouchableOpacity
-        onPress={handleLogout}
-        className="p-1 bg-blue-400 rounded-lg"
-        style={styles.button}
-      >
-        <Text
-          className="text-white text-lg font-bold"
-          style={styles.buttonMessage}
-        >
-          Logout
-        </Text>
-      </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    width: "30%",
-  },
-  buttonMessage: {
-    textAlign: "center",
-  },
-});

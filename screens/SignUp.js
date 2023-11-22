@@ -10,6 +10,7 @@ import { auth } from "../config/firebase";
 export default function SignUp() {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async () => {
@@ -50,7 +51,8 @@ export default function SignUp() {
           <Text className="text-gray-700 ml-4">Full Name</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-            value="john snow"
+            value={username}
+            onChangeText={(value) => setUsername(value)}
             placeholder="Enter Name"
           />
           <Text className="text-gray-700 ml-4">Email Address</Text>
