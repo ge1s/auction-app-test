@@ -1,105 +1,86 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  Button,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
 import React, { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ArrowLeftIcon } from "react-native-heroicons/solid";
+import { themeColors } from "../theme";
 import { useNavigation } from "@react-navigation/native";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
 
-const Login = () => {
+export default function LoginScreen() {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+  const handleSubmit = async () => {
+    if (email && password) {
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (err) {
+        console.log("got error: ", err.message);
+      }
+    }
   };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      <View style={styles.formContainer}>
-        <TextInput
-          value={email}
-          style={styles.input}
-          placeholder="Username"
-          // onChange={handleEmailChange}
-          onChange={(text) => setEmail(text)}
-        ></TextInput>
-        <TextInput
-          value={password}
-          style={styles.input}
-          secureTextEntry={true}
-          placeholder="Password"
-          // onChange={handlePasswordChange}
-          onChange={(text) => setPassword(text)}
-        ></TextInput>
-        {/* <Button title="Login" style={styles.login} /> */}
-        <TouchableOpacity
-          style={styles.login}
-          onPress={() => navigation.push("Home")}
-        >
-          <Text style={styles.loginMessage}>Login</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.bottomMessage}>
-        <Text style={styles.bottomMessage}>Don't have an account</Text>
-        <TouchableOpacity onPress={() => navigation.push("SignUp")}>
-          <Text style={styles.signMessage}>Sign Up</Text>
-        </TouchableOpacity>
+    <View
+      className="flex-1 bg-white"
+      style={{ backgroundColor: themeColors.bg }}
+    >
+      <SafeAreaView className="flex ">
+        <View className="flex-row justify-start">
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            className="bg-yellow-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4"
+          >
+            <ArrowLeftIcon size="20" color="black" />
+          </TouchableOpacity>
+        </View>
+        <View className="flex-row justify-center">
+          <Image
+            source={require("../assets/images/login.png")}
+            style={{ width: 200, height: 200, alignItems: "center" }}
+          />
+        </View>
+      </SafeAreaView>
+      <View
+        style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
+        className="flex-1 bg-white px-8 pt-8"
+      >
+        <View className="form space-y-2">
+          <Text className="text-gray-700 ml-4">Email Address</Text>
+          <TextInput
+            className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
+            placeholder="email"
+            value={email}
+            onChangeText={(value) => setEmail(value)}
+          />
+          <Text className="text-gray-700 ml-4">Password</Text>
+          <TextInput
+            className="p-4 bg-gray-100 text-gray-700 rounded-2xl"
+            secureTextEntry
+            placeholder="password"
+            value={password}
+            onChangeText={(value) => setPassword(value)}
+          />
+          <TouchableOpacity
+            onPress={handleSubmit}
+            className="py-3 bg-yellow-400 rounded-xl"
+          >
+            <Text className="text-xl font-bold text-center text-gray-700">
+              Login
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View className="flex-row justify-center mt-7">
+          <Text className="text-gray-500 font-semibold">
+            Don't have an account?
+          </Text>
+          <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+            <Text className="font-semibold text-yellow-500"> Sign Up</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
-};
-
-export default Login;
-
-const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 15,
-    flex: 1,
-    justifyContent: "center",
-    marginVertical: 20,
-  },
-  formContainer: {
-    marginVertical: 10,
-  },
-  input: {
-    borderWidth: 1,
-    height: 40,
-    padding: 10,
-    marginVertical: 5,
-    borderRadius: 5,
-  },
-  login: {
-    backgroundColor: "#4d76e8",
-    borderRadius: 5,
-    height: 40,
-  },
-  bottomMessage: {
-    flex: 1,
-    flexDirection: "row",
-  },
-  signMessage: {
-    fontWeight: "bold",
-    color: "#4d76e8",
-  },
-  loginMessage: {
-    fontWeight: "bold",
-    color: "#fff",
-    textAlign: "center",
-    marginTop: 10,
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 30,
-    textAlign: "center",
-  },
-});
+}

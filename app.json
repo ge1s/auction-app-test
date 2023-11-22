@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "auction-app-test",
-    "slug": "auction-app-test",
+    "name": "app-ui",
+    "slug": "app-ui",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
