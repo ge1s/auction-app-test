@@ -3,6 +3,7 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
+import ToDoScreen from "./ToDoScreen";
 
 export default function HomeScreen() {
   const handleLogout = async () => {
@@ -14,7 +15,7 @@ export default function HomeScreen() {
         <View className="flex-row justify-start">
           <TouchableOpacity
             onPress={handleLogout}
-            className="bg-yellow-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4 rounded-tr-2xl rounded-bl-2xl ml-4"
+            className="bg-yellow-400 p-2 rounded-2xl mb-7  mx-3 my-3"
           >
             <Text className="text-white text-lg font-bold">Logout</Text>
           </TouchableOpacity>
@@ -26,6 +27,9 @@ export default function HomeScreen() {
           />
         </View>
       </SafeAreaView>
+      <View>
+        <ToDoScreen />
+      </View>
     </View>
   );
 }

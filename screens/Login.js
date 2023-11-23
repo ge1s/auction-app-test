@@ -30,9 +30,9 @@ export default function LoginScreen() {
         <View className="flex-row justify-start">
           <TouchableOpacity
             onPress={() => navigation.goBack()}
-            className="bg-yellow-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4"
+            className=" p-2 rounded-tr-2xl rounded-bl-2xl ml-4"
           >
-            <ArrowLeftIcon size="20" color="black" />
+            <ArrowLeftIcon size="20" color="yellow" />
           </TouchableOpacity>
         </View>
         <View className="flex-row justify-center">
